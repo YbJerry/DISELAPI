@@ -1,0 +1,105 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<?xml-model href="dis.xsd"?>
+<ontology>
+    <name>weather</name>
+    <atomDomain>
+        <atom description="The minimum temperature of the day">MinTemp</atom>
+        <atom description="The maximum temperature of the day">MaxTemp</atom>
+        <atom description="The rainfall index of the day">Rainfall</atom>
+        <atom description="The sunshine index of the day">Sunshine</atom>
+        <atom description="The humidity percent of the day">Humidity</atom>
+    </atomDomain>
+    <concept>
+        <name>Temp</name>
+        <latticeOfConcepts>
+            <atom>minTemp</atom>
+            <atom>maxTemp</atom>
+        </latticeOfConcepts>
+    </concept>
+    <concept>
+        <name>Moisture</name>
+        <latticeOfConcepts>
+            <atoms>Rainfall Humidity</atoms>
+        </latticeOfConcepts>
+    </concept>
+    <concept>
+        <name>Sunny</name>
+        <latticeOfConcepts>
+            <concept>Temp</concept>
+            <atom>Sunshine</atom>
+            <atom>Rainfall</atom>
+        </latticeOfConcepts>
+    </concept>
+    <concept>
+        <name>Windy</name>
+        <latticeOfConcepts>
+            <concept>Moisture</concept>
+            <atom>Sunshine</atom>
+        </latticeOfConcepts>
+    </concept>
+    <concept>
+        <name>weather</name>
+        <latticeOfConcepts>
+            <concept>Sunny</concept>
+            <concept>Windy</concept>
+        </latticeOfConcepts>
+    </concept>
+    <concept>
+        <name>Spring</name>
+        <latticeOfConcepts>
+            <atom>month</atom>
+            <atom>hemisphere</atom>
+        </latticeOfConcepts>
+        <defination>
+            <![CDATA[
+            (month >= 3 \and month <= 5 \and hemisphere == "Northern")
+            \or
+            (month >= 9 \and month <= 11 \and hemisphere == "Southern")
+            ]]>
+        </defination>
+    </concept>
+    <graph>
+        <name>Weather Graph</name>
+        <rootedIn>weather</rootedIn>
+        <edge>
+            <from>Seasons</from>
+            <to>weather</to>
+        </edge>
+        <relation>
+            <name>isA</name>
+            <properties>transitive reflexive</properties>
+            <edge>
+                <from>Summer</from>
+                <to>Seasons</to>
+            </edge>
+            <edge>
+                <from>Fall</from>
+                <to>Seasons</to>
+            </edge>
+            <edge>
+                <from>Winter</from>
+                <to>Seasons</to>
+            </edge>
+            <edge>
+                <from>Spring</from>
+                <to>Seasons</to>
+            </edge>
+            <edge>
+                <from>Sunny Day</from>
+                <to>Summer</to>
+            </edge>
+            <edge>
+                <from>Crisp Day</from>
+                <to>Fall</to>
+            </edge>
+            <edge>
+                <from>Frigid Day</from>
+                <to>Winter</to>
+            </edge>
+            <edge>
+                <from>Clear Day</from>
+                <to>Spring</to>
+            </edge>
+        </relation>
+    </graph>
+</ontology>
