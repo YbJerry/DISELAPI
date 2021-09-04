@@ -4,9 +4,14 @@
 #include <iostream>
 
 #include "DISXMLReader.h"
+#include "DISXMLWriter.h"
 
 int main()
 {
     DISXMLReader reader("dis.xml");
-    reader.read();
+    DISEL::Ontology onto = reader.read();
+
+    DISXMLWriter writer;
+    writer.write("test.xml", onto);
+    return 0;
 }

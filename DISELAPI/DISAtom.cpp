@@ -4,11 +4,11 @@ DISEL::Atom::Atom()
 {
 }
 
-DISEL::Atom::Atom(AtomTag name):name(name)
+DISEL::Atom::Atom(AtomTag name):name(name), hasDesc(false)
 {
 }
 
-DISEL::Atom::Atom(AtomTag name, string description):name(name), description(description)
+DISEL::Atom::Atom(AtomTag name, string description):name(name), description(description), hasDesc(true)
 {
 }
 
@@ -29,5 +29,17 @@ std::string DISEL::Atom::getDescription() const
 
 void DISEL::Atom::setDescription(string description)
 {
+	hasDesc = true;
 	this->description = description;
+}
+
+void DISEL::Atom::delDescription()
+{
+	description.clear();
+	hasDesc = false;
+}
+
+bool DISEL::Atom::hasDescription() const
+{
+	return hasDesc;
 }

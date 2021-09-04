@@ -17,8 +17,12 @@ namespace DISEL {
 		string getDescription() const;
 		void setName(AtomTag name);
 		void setDescription(string description);
+		void delDescription();
+		bool hasDescription() const;
+
 	private:
 		AtomTag name;
+		bool hasDesc;
 		string description;
 	};
 

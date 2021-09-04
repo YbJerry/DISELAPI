@@ -13,9 +13,11 @@ namespace DISEL {
 		Edge(ConceptTag from, ConceptTag to);
 
 		void setFromTag(ConceptTag ct);
-		ConceptTag getFromTag() const;
+		const ConceptTag& getFromTag() const;
+		ConceptTag& getFromTag();
 		void setToTag(ConceptTag ct);
-		ConceptTag getToTag() const;
+		const ConceptTag& getToTag() const;
+		ConceptTag& getToTag();
 
 	private:
 		ConceptTag from, to;

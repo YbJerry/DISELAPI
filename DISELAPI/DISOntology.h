@@ -5,9 +5,12 @@
 #include "DISAtomDomain.h"
 #include "DISConcept.h"
 #include "DISGraph.h"
+#include <optional>
 
 namespace DISEL {
 	using namespace std;
+
+	typedef string OntologyTag;
 
 	template<typename DISType>
 	struct DISComp {
@@ -25,8 +28,13 @@ namespace DISEL {
 		void setName(string name);
 		string getName() const;
 		void addAtom(Atom a);
+		void addAtoms(ConceptTag ct);
+		vector<Atom*> getAtomDomain();
 		void addConcept(Concept c);
+		std::optional<Concept> getConcept(ConceptTag ct) const;
+		vector<Concept> getAllConcepts() const; 
 		void addGraph(Graph g);
+		vector<Graph> getAllGraphs() const;
 
 	private:
 		string name;

@@ -2,12 +2,12 @@
 
 #include <fstream>
 #include <ranges>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xercesc/parsers/XercesDOMParser.hpp>
-#include <xercesc/dom/DOM.hpp>
+#include <tinyxml2.h>
 
 #include "DISOntology.h"
-#include "tools.hpp"
+#include "utils.hpp"
+#include "DISAtom.h"
+#include "DISConcept.h"
 
 class DISXMLReader
 {
@@ -16,6 +16,11 @@ public:
 	~DISXMLReader();
 	DISEL::Ontology read();
 private:
-	xercesc::XercesDOMParser *parser;
+	DISEL::Atom readAtomFromXML(tinyxml2::XMLElement* e);
+	DISEL::Concept readConceptFromXML(tinyxml2::XMLElement* e, DISEL::Ontology onto);
+	DISEL::Graph readGraphFromXML(tinyxml2::XMLElement* e);
+	DISEL::AtomDomain readAtomDomainFromXML(tinyxml2::XMLElement *e);
+
+	tinyxml2::XMLDocument doc;
 };
 

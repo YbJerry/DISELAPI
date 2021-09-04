@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31410.414
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DISELAPI", "DISELAPI\DISELAPI.vcxproj", "{ACA16F42-8990-4052-B790-189841E4298B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DISELAPI_test", "DISELAPI_test\DISELAPI_test.vcxproj", "{EB428619-48EC-4414-8C09-8E5F5808FBC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{ACA16F42-8990-4052-B790-189841E4298B}.Release|x64.Build.0 = Release|x64
 		{ACA16F42-8990-4052-B790-189841E4298B}.Release|x86.ActiveCfg = Release|Win32
 		{ACA16F42-8990-4052-B790-189841E4298B}.Release|x86.Build.0 = Release|Win32
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Debug|x64.ActiveCfg = Debug|x64
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Debug|x64.Build.0 = Debug|x64
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Debug|x86.ActiveCfg = Debug|Win32
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Debug|x86.Build.0 = Debug|Win32
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Release|x64.ActiveCfg = Release|x64
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Release|x64.Build.0 = Release|x64
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Release|x86.ActiveCfg = Release|Win32
+		{EB428619-48EC-4414-8C09-8E5F5808FBC8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
