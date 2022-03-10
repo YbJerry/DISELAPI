@@ -10,7 +10,7 @@ class DISXMLWriter
 {
 public:
 	DISXMLWriter();
-	void write(std::string fileName, DISEL::Ontology);
+	void write(std::string fileName, DISEL::Ontology& onto);
 
 private:
 	tinyxml2::XMLElement *readConceptFromDISEL(const DISEL::Concept& con, tinyxml2::XMLDocument &doc);

@@ -4,6 +4,16 @@
 #include <vector>
 #include <sstream>
 
+namespace DISEL {
+	enum class TYPE {
+		Ontology,
+		Atom,
+		Edge,
+		Concept,
+		Graph
+	};
+}
+
 inline std::vector<std::string> splitString(std::string str) {
 	std::vector<std::string> res;
 	std::istringstream istream(str);

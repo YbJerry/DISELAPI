@@ -43,6 +43,11 @@ void DISEL::Concept::removeAtomTypeLattice(AtomTag at)
 	latticeOfConcepts.erase(at);
 }
 
+void DISEL::Concept::clearLatticeOfConcepts()
+{
+	latticeOfConcepts.clear();
+}
+
 std::vector<DISEL::AtomTag> DISEL::Concept::getLatticeOfConcepts() const
 {
 	return vector<AtomTag>(latticeOfConcepts.begin(), latticeOfConcepts.end());

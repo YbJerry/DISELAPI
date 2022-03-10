@@ -56,12 +56,20 @@
     <concept>
         <name>Windy</name>
         <latticeOfConcepts>
+            <atom>Humidity</atom>
+            <atom>Rainfall</atom>
             <atom>Sunshine</atom>
         </latticeOfConcepts>
     </concept>
     <concept>
         <name>weather</name>
-        <latticeOfConcepts/>
+        <latticeOfConcepts>
+            <atom>Humidity</atom>
+            <atom>Rainfall</atom>
+            <atom>Sunshine</atom>
+            <atom>maxTemp</atom>
+            <atom>minTemp</atom>
+        </latticeOfConcepts>
     </concept>
     <graph>
         <name>Weather Graph</name>

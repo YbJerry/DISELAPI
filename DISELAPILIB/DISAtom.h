@@ -10,6 +10,8 @@ namespace DISEL {
 	{
 	public:
 		Atom();
+		Atom(const Atom& at);
+		Atom(Atom&& at);
 		Atom(AtomTag name);
 		Atom(AtomTag name, string description);
 

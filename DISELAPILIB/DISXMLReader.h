@@ -14,11 +14,11 @@ class DISXMLReader
 public:
 	DISXMLReader(std::string filePath);
 	~DISXMLReader();
-	DISEL::Ontology read();
+	DISEL::Ontology* read();
 private:
 	DISEL::Atom readAtomFromXML(tinyxml2::XMLElement* e);
-	DISEL::Concept readConceptFromXML(tinyxml2::XMLElement* e, DISEL::Ontology onto);
-	DISEL::Graph readGraphFromXML(tinyxml2::XMLElement* e);
+	DISEL::Concept* readConceptFromXML(tinyxml2::XMLElement* e, DISEL::Ontology* onto);
+	DISEL::Graph* readGraphFromXML(tinyxml2::XMLElement* e);
 	DISEL::AtomDomain readAtomDomainFromXML(tinyxml2::XMLElement *e);
 
 	tinyxml2::XMLDocument doc;

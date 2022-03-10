@@ -9,15 +9,15 @@ DISXMLReader::~DISXMLReader()
 {
 }
 
-DISEL::Ontology DISXMLReader::read()
+DISEL::Ontology* DISXMLReader::read()
 {
-	DISEL::Ontology onto;
+	DISEL::Ontology* onto = new DISEL::Ontology();
 
 	auto *root = doc.FirstChildElement("ontology");
 	
 	auto *ontoNameElement = root->FirstChildElement("name");
 	if (ontoNameElement != nullptr) {
-		onto.setName(root->FirstChildElement("name")->GetText());
+		onto->setName(root->FirstChildElement("name")->GetText());
 	}
 	else {
 		throw std::runtime_error("ontology doesn't contain a name element");
@@ -26,7 +26,7 @@ DISEL::Ontology DISXMLReader::read()
 
 	for (auto* it = atomDomain->FirstChildElement(); it != nullptr; it = it->NextSiblingElement()) {
 		if (strcmp(it->Name(), "atom") == 0) {
-			onto.addAtom(readAtomFromXML(it));
+			onto->addAtom(readAtomFromXML(it));
 		}
 		else {
 			throw std::runtime_error("atomDomain contains elements besides atom elements");
@@ -34,11 +34,11 @@ DISEL::Ontology DISXMLReader::read()
 	}
 
 	for (auto* it = root->FirstChildElement("concept"); it != nullptr; it = it->NextSiblingElement("concept")) {
-		onto.addConcept(readConceptFromXML(it));
+		onto->addConcept(readConceptFromXML(it, onto));
 	}
 
 	for (auto* it = root->FirstChildElement("graph"); it != nullptr; it = it->NextSiblingElement("graph")) {
-		onto.addGraph(readGraphFromXML(it));
+		onto->addGraph(readGraphFromXML(it));
 	}
 
 	return onto;
@@ -61,13 +61,13 @@ DISEL::Atom DISXMLReader::readAtomFromXML(tinyxml2::XMLElement* e)
 	
 }
 
-DISEL::Concept DISXMLReader::readConceptFromXML(tinyxml2::XMLElement* e, DISEL::Ontology onto)
+DISEL::Concept* DISXMLReader::readConceptFromXML(tinyxml2::XMLElement* e, DISEL::Ontology *onto)
 {
-	DISEL::Concept con;
+	DISEL::Concept *con = new DISEL::Concept();
 
 	// read name of concept
 	if (auto* conNameElement = e->FirstChildElement("name"); conNameElement != nullptr) {
-		con.setName(conNameElement->GetText());
+		con->setName(conNameElement->GetText());
 	}
 	else {
 		throw std::runtime_error("concept doesn't contain a name element");
@@ -76,20 +76,27 @@ DISEL::Concept DISXMLReader::readConceptFromXML(tinyxml2::XMLElement* e, DISEL::
 	// read latticeOfConcepts of concept
 	if (auto* conLatticeElement = e->FirstChildElement("latticeOfConcepts"); conLatticeElement != nullptr) {
 		for (auto* it = conLatticeElement->FirstChildElement("atom"); it != nullptr; it = it->NextSiblingElement("atom")) {
-			con.addAtomTypeLattice(it->GetText());
+			con->addAtomTypeLattice(it->GetText());
 		}
 
 		for (auto* it = conLatticeElement->FirstChildElement("atoms"); it != nullptr; it = it->NextSiblingElement("atoms")) {
 			std::string atomsStr = it->GetText();
 			auto atoms = splitString(atomsStr);
 			for (auto a : atoms) {
-				con.addAtomTypeLattice(a);
+				con->addAtomTypeLattice(a);
 			}
 		}
 
 		for (auto* it = conLatticeElement->FirstChildElement("concept"); it != nullptr; it = it->NextSiblingElement("concept")) {
 			std::string conTagStr = it->GetText();
-			
+			if (auto ctCon = onto->getConcept(DISEL::ConceptTag(conTagStr)); ctCon != std::nullopt) {
+				for (auto l : ctCon.value()->getLatticeOfConcepts()) {
+					con->addAtomTypeLattice(l);
+				}
+			}
+			else {
+				throw std::runtime_error("this concept tag doesn't exist");
+			}
 		}
 	}
 	else {
@@ -98,24 +105,24 @@ DISEL::Concept DISXMLReader::readConceptFromXML(tinyxml2::XMLElement* e, DISEL::
 
 	// read defination of concept
 	if (auto* conDefElement = e->FirstChildElement("defination"); conDefElement != nullptr) {
-		con.setDefination(conDefElement->GetText());
+		con->setDefination(conDefElement->GetText());
 	}
 
 	// read description of concept
 	if (auto* conDescElement = e->FirstChildElement("description"); conDescElement != nullptr) {
-		con.setDefination(conDescElement->GetText());
+		con->setDescription(conDescElement->GetText());
 	}
 
 	return con;
 }
 
-DISEL::Graph DISXMLReader::readGraphFromXML(tinyxml2::XMLElement* e)
+DISEL::Graph* DISXMLReader::readGraphFromXML(tinyxml2::XMLElement* e)
 {
-	DISEL::Graph gra;
+	DISEL::Graph* gra = new DISEL::Graph();
 
 	// read name of graph
 	if (auto* conNameElement = e->FirstChildElement("name"); conNameElement != nullptr) {
-		gra.setName(conNameElement->GetText());
+		gra->setName(conNameElement->GetText());
 	}
 	else {
 		throw std::runtime_error("graph doesn't contain a name element");
@@ -123,7 +130,7 @@ DISEL::Graph DISXMLReader::readGraphFromXML(tinyxml2::XMLElement* e)
 
 	// read root of graph
 	if (auto* conRootElement = e->FirstChildElement("rootedIn"); conRootElement != nullptr) {
-		gra.setRoot(conRootElement->GetText());
+		gra->setRoot(conRootElement->GetText());
 	}
 	else {
 		throw std::runtime_error("graph doesn't contain a rootedIn element");
@@ -140,7 +147,7 @@ DISEL::Graph DISXMLReader::readGraphFromXML(tinyxml2::XMLElement* e)
 			if (auto* dis = toElement->Attribute("DIS"); dis != nullptr) {
 				to.setOntologyBelong(dis);
 			}
-			gra.addEdge(from, to);
+			gra->addEdge(from, to);
 		}
 		else{
 			throw std::runtime_error("edge doesn't contain a from or to element");
@@ -166,7 +173,7 @@ DISEL::Graph DISXMLReader::readGraphFromXML(tinyxml2::XMLElement* e)
 			}
 		}
 
-		gra.addRelation(rela);
+		gra->addRelation(rela);
 
 		// read unattribute edges of graph
 		for (auto* it = itRela->FirstChildElement("edge"); it != nullptr; it = it->NextSiblingElement("edge")) {
@@ -179,14 +186,12 @@ DISEL::Graph DISXMLReader::readGraphFromXML(tinyxml2::XMLElement* e)
 				if (auto* dis = toElement->Attribute("DIS"); dis != nullptr) {
 					to.setOntologyBelong(dis);
 				}
-				gra.addEdge(from, to, rela.getName());
+				gra->addEdge(from, to, rela.getName());
 			}
 			else {
 				throw std::runtime_error("edge doesn't contain a from or to element");
 			}
 		}
-
-		
 	}
 
 	return gra;

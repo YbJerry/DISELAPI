@@ -1,6 +1,15 @@
 #include "DISAtom.h"
 
-DISEL::Atom::Atom()
+DISEL::Atom::Atom():hasDesc(false)
+{
+}
+
+DISEL::Atom::Atom(const Atom& at):name(at.name), hasDesc(at.hasDesc), description(at.description)
+{
+
+}
+
+DISEL::Atom::Atom(Atom&& at):name(std::move(at.name)), hasDesc(at.hasDesc), description(std::move(at.description))
 {
 }
 

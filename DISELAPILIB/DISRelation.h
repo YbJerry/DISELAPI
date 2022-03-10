@@ -9,6 +9,8 @@ namespace DISEL {
 
 	enum class RelationProperty { transitive, reflexive };
 
+	const vector<RelationProperty> RelationPropertiesVec{ RelationProperty::transitive, RelationProperty::reflexive };
+
 	class Relation
 	{
 		public:

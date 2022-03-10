@@ -4,7 +4,7 @@ DISXMLWriter::DISXMLWriter()
 {
 }
 
-void DISXMLWriter::write(std::string fileName, DISEL::Ontology onto)
+void DISXMLWriter::write(std::string fileName, DISEL::Ontology& onto)
 {
 	tinyxml2::XMLDocument doc;
 
@@ -34,11 +34,11 @@ void DISXMLWriter::write(std::string fileName, DISEL::Ontology onto)
 	ontologyElement->InsertEndChild(atomDomainElement);
 
 	for (auto c : onto.getAllConcepts()) {
-		ontologyElement->InsertEndChild(readConceptFromDISEL(c, doc));
+		ontologyElement->InsertEndChild(readConceptFromDISEL(*c, doc));
 	}
 
 	for (auto g : onto.getAllGraphs()) {
-		ontologyElement->InsertEndChild(readGraphFromDISEL(g, doc));
+		ontologyElement->InsertEndChild(readGraphFromDISEL(*g, doc));
 	}
 
 	doc.InsertEndChild(ontologyElement);
