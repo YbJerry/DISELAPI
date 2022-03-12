@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <optional>
 
 #include "DISConcept.h"
 #include "DISEdge.h"
@@ -37,12 +38,13 @@ namespace DISEL {
 		void addEdge(ConceptTag from, ConceptTag to);
 		void addEdge(ConceptTag from, ConceptTag to, RelationTag rt);
 		void addRelation(Relation r);
+		optional<Relation*> getRelation(RelationTag rt);
 		void delRelation(RelationTag rt);
 		void delUnattributableEdge(size_t index);
 		void delAttributableEdge(RelationTag rt, size_t index);
 		Edge getUnattributableEdge(size_t index);
 		Edge getAttributableEdge(RelationTag rt, size_t index);
-		vector<Relation> getRelations() const;
+		vector<Relation *> getRelations() const;
 		vector<Edge> getUnattributableEdges() const;
 		vector<pair<RelationTag, vector<Edge>>> getAttributableEdges() const;
 		vector<Edge> getEdgesFromRelation(RelationTag rt) const;
@@ -55,6 +57,6 @@ namespace DISEL {
 		vector<Edge> unattributableEdges;
 		set<ConceptTag> nodes;
 		map<RelationTag, vector<Edge>> attributableEdges;
-		vector<Relation> relations;
+		vector<Relation*> relations;
 	};
 }

@@ -16,12 +16,17 @@ namespace DISEL {
 		public:
 			Relation();
 			Relation(string name);
+			Relation(const Relation& rela);
+			Relation(Relation&& rela);
+			Relation& operator=(const Relation& rela);
 
 			void setName(string name);
 			string getName() const;
 			void addProperty(string p);
 			void addProperty(RelationProperty p);
-			vector<RelationProperty> getAllProperties();
+			void delProperty(RelationProperty p);
+			vector<RelationProperty> getAllProperties() const;
+			void clearProperties();
 
 		private:
 			RelationProperty storp(string p);

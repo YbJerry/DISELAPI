@@ -1,128 +1,122 @@
-<?xml version='1.1' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ontology>
-  <include>
-    <DIS></DIS>
-    <as>dis2</as>
-  </include>
-  <name>weather</name>
-  <atomDomain>
-    <atom>
-      <name>MinTemp</name>
-      <description>The minimum temperature of the day</description>
-    </atom>
-    <atom>
-      <name>MaxTemp</name>
-      <description>The maximum temperature of the day</description>
-    </atom>
-    <atom>
-      <name>Rainfall</name>
-      <description>The rainfall index of the day</description>
-    </atom>
-    <atom>
-      <name>Sunshine</name>
-      <description>The rainfall index of the day</description>
-    </atom>
-    <atom>
-      <name>Humidity</name>
-      <description>The humidity percent of the day</description>
-    </atom>
-  </atomDomain>
-  <concept>
-    <name>Temp</name>
-    <latticeOfConcepts>
-      <atom>minTemp</atom>
-      <atom>maxTemp</atom>
-    </latticeOfConcepts>
-    <description>
-      The temperature of the day
-    </description>
-  </concept>
-  <concept>
-    <name>Moisture</name>
-    <latticeOfConcepts>
-      <atoms>Rainfall Humidity</atoms>
-    </latticeOfConcepts>
-  </concept>
-  <concept>
-    <name>Sunny</name>
-    <latticeOfConcepts>
-      <atom>minTemp</atom>
-      <atom>maxTemp</atom>
-      <atom>Sunshine</atom>
-      <atom>Rainfall</atom>
-    </latticeOfConcepts>
-  </concept>
-  <concept>
-    <name>Windy</name>
-    <latticeOfConcepts>
-      <concept>Moisture</concept>
-      <atom>Sunshine</atom>
-    </latticeOfConcepts>
-  </concept>
-  <concept>
-    <name>weather</name>
-    <latticeOfConcepts>
-      <concept>Sunny</concept>
-      <concept>Windy</concept>
-    </latticeOfConcepts>
-  </concept>
-  <concept>
-    <latticeOfConcepts>
-      <atom>month</atom>
-      <atom>hemisphere</atom>
-    </latticeOfConcepts>
-    <name>Spring</name>
-
-    <defination>
-      <![CDATA[
-            (month >= 3 \and month <= 5 \and hemisphere == "Northern")
-            \or
-            (month >= 9 \and month <= 11 \and hemisphere == "Southern")
+	<include>
+		<name>dis2</name>
+		<filePath>dis2.xml</filePath>
+	</include>
+	<name>weather</name>
+	<atomDomain>
+		<atom>
+			<name>MinTemp</name>
+			<description>The minimum temperature of the day</description>
+		</atom>
+		<atom>
+			<name>MaxTemp</name>
+			<description>The maximum temperature of the day</description>
+		</atom>
+		<atom>
+			<name>Rainfall</name>
+			<description>The rainfall index of the day</description>
+		</atom>
+		<atom>
+			<name>Sunshine</name>
+			<description>The rainfall index of the day</description>
+		</atom>
+		<atom>
+			<name>Humidity</name>
+			<description>The humidity percent of the day</description>
+		</atom>
+	</atomDomain>
+	<concept>
+		<name>Temp</name>
+		<latticeOfConcepts>
+			<atom>minTemp</atom>
+			<atom>maxTemp</atom>
+		</latticeOfConcepts>
+	</concept>
+	<concept>
+		<name>Moisture</name>
+		<latticeOfConcepts>
+			<atoms>Rainfall Humidity</atoms>
+		</latticeOfConcepts>
+	</concept>
+	<concept>
+		<name>Sunny</name>
+		<latticeOfConcepts>
+			<atom>minTemp</atom>
+			<atom>maxTemp</atom>
+			<atom>Sunshine</atom>
+			<atom>Rainfall</atom>
+		</latticeOfConcepts>
+	</concept>
+	<concept>
+		<name>Windy</name>
+		<latticeOfConcepts>
+			<concept>Moisture</concept>
+			<atom>Sunshine</atom>
+		</latticeOfConcepts>
+	</concept>
+	<concept>
+		<name>weather</name>
+		<latticeOfConcepts>
+			<concept>Sunny</concept>
+			<concept>Windy</concept>
+		</latticeOfConcepts>
+	</concept>
+	<concept>
+		<name>Hotday</name>
+		<latticeOfConcepts>
+			<atom>Sunshine</atom>
+			<atom>MaxTemp</atom>
+		</latticeOfConcepts>
+		<defination>
+			<![CDATA[
+            MaxTemp >= 20 \and Sunshine >= 8
             ]]>
-    </defination>
-  </concept>
-  <graph>
-    <name>Weather Graph</name>
-    <rootedIn>weather</rootedIn>
-    <edge>
-      <from>Seasons</from>
-      <to>weather</to>
-    </edge>
-    <relation>
-      <name>isA</name>
-      <properties>transitive reflexive</properties>
-      <edge>
-        <from DIS='dis2'>Summer</from>
-        <to>Seasons</to>
-      </edge>
-      <edge>
-        <from>Fall</from>
-        <to>Seasons</to>
-      </edge>
-      <edge>
-        <from>Winter</from>
-        <to>Seasons</to>
-      </edge>
-      <edge>
-        <from>Spring</from>
-        <to>Seasons</to>
-      </edge>
-      <edge>
-        <from>Sunny Day</from>
-        <to>Summer</to>
-      </edge>
-      <edge>
-        <from>Crisp Day</from>
-        <to>Fall</to>
-      </edge>
-      <edge>
-        <from>Frigid Day</from>
-        <to>Winter</to>
-      </edge>
-      <edge>
-        <from>Clear Day</from>
-        <to>Spring</to>
-      </edge>
-    </relation>
-  </graph>
+		</defination>
+	</concept>
+	<graph>
+		<name>Weather Graph</name>
+		<rootedIn>weather</rootedIn>
+		<edge>
+			<from DIS="dis2">Seasons</from>
+			<to>weather</to>
+		</edge>
+		<relation>
+			<name>isA</name>
+			<properties>transitive reflexive </properties>
+			<edge>
+				<from DIS="dis2">Summer</from>
+				<to DIS="dis2">Seasons</to>
+			</edge>
+			<edge>
+				<from DIS="dis2">Fall</from>
+				<to DIS="dis2">Seasons</to>
+			</edge>
+			<edge>
+				<from DIS="dis2">Winter</from>
+				<to DIS="dis2">Seasons</to>
+			</edge>
+			<edge>
+				<from DIS="dis2">Spring</from>
+				<to DIS="dis2">Seasons</to>
+			</edge>
+			<edge>
+				<from DIS="dis2">Sunny Day</from>
+				<to DIS="dis2">Summer</to>
+			</edge>
+			<edge>
+				<from DIS="dis2">Crisp Day</from>
+				<to DIS="dis2">Fall</to>
+			</edge>
+			<edge>
+				<from DIS="dis2">Frigid Day</from>
+				<to DIS="dis2">Winter</to>
+			</edge>
+			<edge>
+				<from DIS="dis2">Clear Day</from>
+				<to DIS="dis2">Spring</to>
+			</edge>
+		</relation>
+	</graph>
 </ontology>

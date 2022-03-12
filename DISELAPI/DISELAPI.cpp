@@ -13,7 +13,6 @@ int main()
 
     auto res = onto->getAtomDomain();
 
-
     DISXMLWriter writer;
     writer.write("test.xml", *onto);
     return 0;

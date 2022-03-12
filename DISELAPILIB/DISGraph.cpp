@@ -83,15 +83,24 @@ void DISEL::Graph::addEdge(ConceptTag from, ConceptTag to, RelationTag rt)
 
 void DISEL::Graph::addRelation(Relation r)
 {
-	relations.push_back(r);
+	relations.push_back(new Relation(r));
 	attributableEdges.insert(std::make_pair(r.getName(), vector<Edge>()));
+}
+
+std::optional<DISEL::Relation*> DISEL::Graph::getRelation(RelationTag rt)
+{
+	if (auto iter = find_if(relations.begin(), relations.end(), [rt](Relation* rela) {return rela->getName() == rt; }); iter != relations.end()) {
+		return *iter;
+	}
+	return std::nullopt;
 }
 
 void DISEL::Graph::delRelation(RelationTag rt)
 {
-	auto pred = [rt](const Relation& rela) {return rela.getName() == rt;};
+	auto pred = [rt](Relation* rela) {return rela->getName() == rt;};
 	if (auto iter = find_if(relations.begin(), relations.end(), pred); iter != relations.end()) {
 		attributableEdges.erase(rt);
+		delete* iter;
 		relations.erase(iter);
 	}
 }
@@ -134,7 +143,7 @@ DISEL::Edge DISEL::Graph::getAttributableEdge(RelationTag rt, size_t index)
 	return *(attributableEdges.at(rt).begin() + index);
 }
 
-std::vector<DISEL::Relation> DISEL::Graph::getRelations() const
+std::vector<DISEL::Relation *> DISEL::Graph::getRelations() const
 {
 	return relations;
 }

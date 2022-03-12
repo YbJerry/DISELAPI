@@ -24,17 +24,17 @@
         </atom>
     </atomDomain>
     <concept>
+        <name>Hotday</name>
+        <latticeOfConcepts>
+            <atom>MaxTemp</atom>
+            <atom>Sunshine</atom>
+        </latticeOfConcepts>
+    </concept>
+    <concept>
         <name>Moisture</name>
         <latticeOfConcepts>
             <atom>Humidity</atom>
             <atom>Rainfall</atom>
-        </latticeOfConcepts>
-    </concept>
-    <concept>
-        <name>Spring</name>
-        <latticeOfConcepts>
-            <atom>hemisphere</atom>
-            <atom>month</atom>
         </latticeOfConcepts>
     </concept>
     <concept>
@@ -75,7 +75,7 @@
         <name>Weather Graph</name>
         <rootedIn>weather</rootedIn>
         <edge>
-            <from>Seasons</from>
+            <from DIS="dis2">Seasons</from>
             <to>weather</to>
         </edge>
         <relation>
@@ -83,35 +83,35 @@
             <properties>transitive reflexive </properties>
             <edge>
                 <from DIS="dis2">Summer</from>
-                <to>Seasons</to>
+                <to DIS="dis2">Seasons</to>
             </edge>
             <edge>
-                <from>Fall</from>
-                <to>Seasons</to>
+                <from DIS="dis2">Fall</from>
+                <to DIS="dis2">Seasons</to>
             </edge>
             <edge>
-                <from>Winter</from>
-                <to>Seasons</to>
+                <from DIS="dis2">Winter</from>
+                <to DIS="dis2">Seasons</to>
             </edge>
             <edge>
-                <from>Spring</from>
-                <to>Seasons</to>
+                <from DIS="dis2">Spring</from>
+                <to DIS="dis2">Seasons</to>
             </edge>
             <edge>
-                <from>Sunny Day</from>
-                <to>Summer</to>
+                <from DIS="dis2">Sunny Day</from>
+                <to DIS="dis2">Summer</to>
             </edge>
             <edge>
-                <from>Crisp Day</from>
-                <to>Fall</to>
+                <from DIS="dis2">Crisp Day</from>
+                <to DIS="dis2">Fall</to>
             </edge>
             <edge>
-                <from>Frigid Day</from>
-                <to>Winter</to>
+                <from DIS="dis2">Frigid Day</from>
+                <to DIS="dis2">Winter</to>
             </edge>
             <edge>
-                <from>Clear Day</from>
-                <to>Spring</to>
+                <from DIS="dis2">Clear Day</from>
+                <to DIS="dis2">Spring</to>
             </edge>
         </relation>
     </graph>

@@ -85,18 +85,18 @@ tinyxml2::XMLElement* DISXMLWriter::readGraphFromDISEL(const DISEL::Graph& gra, 
 		auto* relaElement = doc.NewElement("relation");
 
 		auto* relaNameElement = doc.NewElement("name");
-		relaNameElement->SetText(r.getName().c_str());
+		relaNameElement->SetText(r->getName().c_str());
 		relaElement->InsertEndChild(relaNameElement);
 
 		auto* propElement = doc.NewElement("properties");
 		std::string propStr;
-		for (auto rp : r.getAllProperties()) {
+		for (auto rp : r->getAllProperties()) {
 			propStr += rptos(rp) + " ";
 		}
 		propElement->SetText(propStr.c_str());
 		relaElement->InsertEndChild(propElement);
 
-		for (auto e : gra.getEdgesFromRelation(r.getName())) {
+		for (auto e : gra.getEdgesFromRelation(r->getName())) {
 			relaElement->InsertEndChild(readEdgeFromDISEL(e, doc));
 		}
 		graElement->InsertEndChild(relaElement);
