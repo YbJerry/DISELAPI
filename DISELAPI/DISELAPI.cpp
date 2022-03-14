@@ -8,7 +8,7 @@
 
 int main()
 {
-    DISXMLReader reader("dis.xml");
+    DISXMLReader reader("./examples/onlyAtomDomain.xml");
     DISEL::Ontology *onto = reader.read();
 
     auto res = onto->getAtomDomain();

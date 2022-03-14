@@ -143,11 +143,11 @@ DISEL::Graph* DISXMLReader::readGraphFromXML(tinyxml2::XMLElement* e)
 	}
 
 	// read root of graph
-	if (auto* conRootElement = e->FirstChildElement("rootedIn"); conRootElement != nullptr) {
+	if (auto* conRootElement = e->FirstChildElement("rootedAt"); conRootElement != nullptr) {
 		gra->setRoot(conRootElement->GetText());
 	}
 	else {
-		throw std::runtime_error("graph doesn't contain a rootedIn element");
+		throw std::runtime_error("graph doesn't contain a rootedAt element");
 	}
 
 	// read unattribute edges of graph

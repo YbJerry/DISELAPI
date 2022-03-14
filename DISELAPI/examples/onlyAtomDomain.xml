@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ontology>
+	<name>fd</name>
+	<atomDomain>
+		<atom>
+			<name>fd</name>
+		</atom>
+	</atomDomain>
+</ontology>

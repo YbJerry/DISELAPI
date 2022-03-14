@@ -87,7 +87,7 @@ tinyxml2::XMLElement* DISXMLWriter::readGraphFromDISEL(const DISEL::Graph& gra, 
 	nameElement->SetText(gra.getName().c_str());
 	graElement->InsertEndChild(nameElement);
 
-	auto* rootElement = doc.NewElement("rootedIn");
+	auto* rootElement = doc.NewElement("rootedAt");
 	rootElement->SetText(gra.getRoot().getName().c_str());
 	graElement->InsertEndChild(rootElement);
 

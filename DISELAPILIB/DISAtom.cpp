@@ -33,6 +33,9 @@ DISEL::Atom::Atom(AtomTag name):name(name), hasDesc(false)
 
 DISEL::Atom::Atom(AtomTag name, string description):name(name), description(description), hasDesc(true)
 {
+	if (description.empty()) {
+		hasDesc = false;
+	}
 }
 
 DISEL::AtomTag DISEL::Atom::getName() const

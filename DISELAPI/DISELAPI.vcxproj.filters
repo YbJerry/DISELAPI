@@ -24,6 +24,9 @@
       <Filter>Resource Files</Filter>
     </Xml>
     <Xml Include="test.xml" />
+    <Xml Include="examples\onlyAtomDomain.xml">
+      <Filter>Resource Files</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
